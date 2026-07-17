@@ -16,6 +16,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
@@ -24,6 +25,7 @@ body {
   background: var(--dark);
   font-family: Arial, Helvetica, sans-serif;
   letter-spacing: 0;
+  overflow-x: hidden;
 }
 
 a {
@@ -49,7 +51,6 @@ a {
 
 .brand {
   font-weight: 800;
-  text-transform: uppercase;
 }
 
 nav {
@@ -100,11 +101,11 @@ nav a:hover,
   z-index: 1;
   width: min(760px, 100%);
   padding: 160px 40px 78px;
+  min-width: 0;
 }
 
 .eyebrow,
-.section-kicker,
-.release span {
+.section-kicker {
   margin: 0 0 12px;
   color: var(--gold);
   font-size: 12px;
@@ -123,7 +124,6 @@ h1 {
   margin-bottom: 18px;
   font-size: 76px;
   line-height: 0.92;
-  text-transform: uppercase;
 }
 
 h2 {
@@ -143,6 +143,7 @@ h3 {
   color: var(--ink);
   font-size: 20px;
   line-height: 1.45;
+  overflow-wrap: break-word;
 }
 
 .actions,
@@ -154,7 +155,7 @@ h3 {
 
 .button,
 .link-list a,
-.release a {
+.release-list a {
   display: inline-flex;
   align-items: center;
   min-height: 44px;
@@ -166,12 +167,7 @@ h3 {
   font-weight: 700;
 }
 
-.release a {
-  background: rgba(198, 40, 40, 0.28);
-  border-color: rgba(198, 40, 40, 0.55);
-}
-
-.release a:hover {
+.release-list a:hover {
   background: rgba(198, 40, 40, 0.42);
 }
 
@@ -199,7 +195,7 @@ h3 {
 .identity p,
 .about p,
 .metrics span,
-.release p {
+.release-copy p {
   color: var(--muted);
   line-height: 1.58;
 }
@@ -209,25 +205,43 @@ h3 {
   margin-bottom: 28px;
 }
 
-.release-grid {
+.release-panel {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 14px;
+  grid-template-columns: minmax(260px, 0.72fr) minmax(420px, 1.28fr);
+  gap: 34px;
+  align-items: start;
 }
 
-.release {
-  min-height: 210px;
-  display: flex;
-  flex-direction: column;
+.release-copy {
+  max-width: 460px;
+  min-width: 0;
+}
+
+.release-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  min-width: 0;
+}
+
+.release-list a {
   justify-content: space-between;
-  padding: 18px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: linear-gradient(145deg, rgba(198, 40, 40, 0.62), rgba(24, 25, 29, 0.96));
+  gap: 16px;
+  background: linear-gradient(145deg, rgba(198, 40, 40, 0.52), rgba(24, 25, 29, 0.96));
+  border-color: rgba(198, 40, 40, 0.55);
 }
 
-.release.featured {
-  background: linear-gradient(145deg, rgba(198, 40, 40, 0.62), rgba(24, 25, 29, 0.96));
+.release-list span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.release-list small {
+  flex: 0 0 auto;
+  color: var(--gold);
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
 }
 
 .about {
@@ -328,12 +342,9 @@ footer {
   .identity,
   .about,
   .links,
-  .metrics {
+  .metrics,
+  .release-panel {
     grid-template-columns: 1fr;
-  }
-
-  .release-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -360,12 +371,13 @@ footer {
     font-size: 18px;
   }
 
-  .release-grid {
+  .release-list {
     grid-template-columns: 1fr;
   }
 
   .button,
-  .link-list a {
+  .link-list a,
+  .release-list a {
     width: 100%;
     justify-content: center;
   }
